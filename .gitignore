@@ -1,0 +1,11 @@
+.DS_Store
+.phpactor.json
+.phpunit.result.cache
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/games/*
+Thumbs.db

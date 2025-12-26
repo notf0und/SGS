@@ -1,0 +1,16 @@
+services:
+  sgs:
+    container_name: sgs
+    build:
+      context: . #this is required only for debug mode
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ./www:/app/www
+      - ./games:/app/www/storage/app/public/games
+    ports:
+      - 8030:80
+      - 4430:443
+    restart: unless-stopped

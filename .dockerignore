@@ -1,0 +1,9 @@
+www/vendor
+www/node_modules
+www/.env
+www/storage/logs/*
+www/storage/framework/cache/*
+www/storage/framework/sessions/*
+www/storage/framework/views/*
+www/public/storage
+www/public/games
