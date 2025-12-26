@@ -27,6 +27,10 @@ RUN npm install && npm run build
 # Create storage link
 RUN php artisan storage:link
 
+# Copy entrypoint script
+COPY entrypoint.sh /etc/cont-init.d/99-fix-symlink
+RUN chmod +x /etc/cont-init.d/99-fix-symlink
+
 # Fix permissions for Laravel storage and bootstrap/cache
 # Use numeric IDs (1000:1000 from PUID/PGID in docker-compose)
 RUN chown -R 1000:1000 /app/www && \
