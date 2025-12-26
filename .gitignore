@@ -8,4 +8,5 @@
 /.vscode
 /.zed
 /games/*
+!/games/.gitkeep
 Thumbs.db
