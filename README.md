@@ -28,7 +28,7 @@ With SGS, you can install games wirelessly without connecting your Switch to a c
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url> SGS
+   git clone https://github.com/notf0und/SGS
    cd SGS
    ```
 
@@ -76,6 +76,20 @@ See [www/docs/DBI.md](www/docs/DBI.md) for detailed instructions or visit `http:
 - **DBI Browser**: `http://YOUR_SERVER_IP:8030/api/dbi`
 - **Generic (work for Tinfoil and DBI)**: `http://YOUR_SERVER_IP:8030`
 
+## Legal Disclaimer
+
+⚠️ **Important**: This software is intended for personal use only. It is designed to help you manage and access your legally owned game backups over your local network.
+
+- Only use this software with games you legally own
+- Piracy is illegal and violates copyright laws
+- This software is provided for educational and backup purposes only
+- The developer do not condone or support piracy in any form
+- Users are solely responsible for ensuring their use complies with local laws
+
+By using this software, you agree to use it in accordance with all applicable laws and regulations.
+
 ## License
 
-This project is open-source. Feel free to use, modify, and distribute.
+This work is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+![CC](https://mirrors.creativecommons.org/presskit/icons/cc.svg)![BY](https://mirrors.creativecommons.org/presskit/icons/by.svg)![NC](https://mirrors.creativecommons.org/presskit/icons/nc.svg)![SA](https://mirrors.creativecommons.org/presskit/icons/sa.svg)
