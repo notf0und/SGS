@@ -131,7 +131,7 @@
                                     </p>
 
                                     <a
-                                        href="https://github.com/yourusername/SGS"
+                                        href="https://github.com/notf0und/SGS"
                                         target="_blank"
                                         class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#FF2D20] hover:text-[#FF2D20]/80"
                                     >
