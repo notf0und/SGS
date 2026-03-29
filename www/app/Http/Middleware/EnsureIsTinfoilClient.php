@@ -6,20 +6,17 @@ use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
 
 class EnsureIsTinfoilClient
 {
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure(Request): (Response|RedirectResponse) $next
-     * @return Response|RedirectResponse
+     * @param  Closure(Request): (Response|RedirectResponse)  $next
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        if (!!$request->header('theme')) {
+        if ((bool) $request->header('theme')) {
             return redirect()->route('tinfoil');
         }
 

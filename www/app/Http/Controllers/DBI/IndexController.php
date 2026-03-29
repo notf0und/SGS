@@ -35,7 +35,8 @@ class IndexController extends Controller
     private function getRequestPath(Request $request): ?string
     {
         $path = $request->route('path');
-        return $path ? urldecode($path) : null;
+
+        return $path ? rawurldecode($path) : null;
     }
 
     /**
@@ -51,9 +52,9 @@ class IndexController extends Controller
      */
     private function serveFile(string $path): Response|BinaryFileResponse
     {
-        $storagePath = self::GAMES_DIRECTORY . '/' . $path;
+        $storagePath = self::GAMES_DIRECTORY.'/'.$path;
 
-        if (!Storage::exists($storagePath)) {
+        if (! Storage::exists($storagePath)) {
             return response('File not found', 404);
         }
 
@@ -68,19 +69,19 @@ class IndexController extends Controller
      */
     private function serveDirectoryListing(?string $path, Request $request): Response
     {
-        $storagePath = $path 
-            ? self::GAMES_DIRECTORY . '/' . $path 
+        $storagePath = $path
+            ? self::GAMES_DIRECTORY.'/'.$path
             : self::GAMES_DIRECTORY;
 
         $directories = $this->getDirectories($storagePath);
         $files = $this->getFiles($storagePath);
-        
+
         // Determine if this is a DBI client or regular browser
         $isDBI = str_starts_with($request->userAgent() ?? '', 'DBI/');
-        
+
         // Determine base URL for links based on request path
         $baseUrl = str_starts_with($request->path(), 'api/dbi') ? '/api/dbi/' : '/';
-        
+
         $html = $this->buildDirectoryListingHtml($directories, $files, $path ?? '', $baseUrl, $isDBI);
 
         return response($html)->header('Content-Type', 'text/html');
@@ -131,8 +132,8 @@ class IndexController extends Controller
      */
     private function buildDirectoryListingHtml(Collection $directories, Collection $files, string $currentPath, string $baseUrl, bool $isDBI): string
     {
-        $displayPath = $currentPath 
-            ? '/games/' . urldecode($currentPath) . '/' 
+        $displayPath = $currentPath
+            ? '/games/'.rawurldecode($currentPath).'/'
             : '/games/';
 
         return view('dbi.directory-listing', [
@@ -151,7 +152,7 @@ class IndexController extends Controller
      */
     private function getParentDirectoryUrl(string $currentPath, string $baseUrl, bool $isDBI): ?string
     {
-        if (!$currentPath) {
+        if (! $currentPath) {
             return null;
         }
 
@@ -167,7 +168,7 @@ class IndexController extends Controller
             return $baseUrl;
         }
 
-        return rtrim($baseUrl, '/') . '/' . collect(explode('/', $parentPath))
+        return rtrim($baseUrl, '/').'/'.collect(explode('/', $parentPath))
             ->map(fn ($segment) => rawurlencode($segment))
             ->implode('/');
     }

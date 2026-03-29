@@ -5,6 +5,7 @@ namespace App\Helpers;
 class FileSize
 {
     private const UNITS = ['', 'K', 'M', 'G', 'T'];
+
     private const THRESHOLD = 1024;
 
     /**
@@ -18,9 +19,10 @@ class FileSize
 
         $unitIndex = (int) floor(log($bytes, self::THRESHOLD));
         $unitIndex = min($unitIndex, count(self::UNITS) - 1);
-        
+
         $size = $bytes / pow(self::THRESHOLD, $unitIndex);
-        
-        return number_format($size, 2) . self::UNITS[$unitIndex];
+        $decimals = $unitIndex === 0 ? 0 : 2;
+
+        return number_format($size, $decimals, '.', '').self::UNITS[$unitIndex];
     }
 }
