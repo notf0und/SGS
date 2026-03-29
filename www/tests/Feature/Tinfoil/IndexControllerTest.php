@@ -47,7 +47,7 @@ test('only includes files with supported Nintendo Switch extensions', function (
 
     $files = collect($response->json('files'));
     expect($files)->toHaveCount(4);
-    expect($files->pluck('url')->every(fn ($url) => !str_ends_with($url, '.txt') && !str_ends_with($url, '.jpg')))->toBeTrue();
+    expect($files->pluck('url')->every(fn ($url) => ! str_ends_with($url, '.txt') && ! str_ends_with($url, '.jpg')))->toBeTrue();
 });
 
 test('file url is an absolute URL', function () {

@@ -106,7 +106,7 @@ test('DBI user-agent receives relative links', function () {
     $response = $this->get('/api/dbi/', ['HTTP_USER_AGENT' => 'DBI/1.0']);
 
     // DBI clients need a relative href like "GameA/" not an absolute path
-    $response->assertSee('href="' . rawurlencode('GameA') . '/"', false);
+    $response->assertSee('href="'.rawurlencode('GameA').'/"', false);
 });
 
 test('browser user-agent receives absolute links', function () {
@@ -114,7 +114,7 @@ test('browser user-agent receives absolute links', function () {
 
     $response = $this->get('/api/dbi/');
 
-    $response->assertSee('href="/api/dbi/' . rawurlencode('GameA') . '"', false);
+    $response->assertSee('href="/api/dbi/'.rawurlencode('GameA').'"', false);
 });
 
 test('displays the current subdirectory path in the page title', function () {

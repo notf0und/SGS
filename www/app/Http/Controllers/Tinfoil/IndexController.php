@@ -18,7 +18,7 @@ class IndexController extends Controller
     {
         return response()->json([
             'files' => $this->getInstallableFiles()->values(),
-            'success' => config('app.name')
+            'success' => config('app.name'),
         ]);
     }
 
@@ -31,7 +31,7 @@ class IndexController extends Controller
             ->filter(fn ($path) => NintendoFileExtension::isSupported($path))
             ->map(fn ($path) => [
                 'url' => url($path),
-                'size' => Storage::size($path)
+                'size' => Storage::size($path),
             ]);
     }
 }
