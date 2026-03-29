@@ -60,3 +60,41 @@ jobs:
       - name: Run Pint
         working-directory: www
         run: ./vendor/bin/pint --test
+
+  update-checklist:
+    name: Update PR checklist
+    runs-on: ubuntu-latest
+    if: always() && github.event_name == 'pull_request'
+    needs: [test, lint]
+    permissions:
+      pull-requests: write
+
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const testsPass = '${{ needs.test.result }}' === 'success';
+            const lintPass  = '${{ needs.lint.result }}' === 'success';
+
+            const check = (pass) => pass ? 'x' : ' ';
+
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+
+            const body = (pr.body ?? '').replace(
+              /- \[[ x]\] Tests pass \(`php artisan test`\)/,
+              `- [${check(testsPass)}] Tests pass (\`php artisan test\`)`
+            ).replace(
+              /- \[[ x]\] Code style passes \(`\.\/vendor\/bin\/pint --test`\)/,
+              `- [${check(lintPass)}] Code style passes (\`./vendor/bin/pint --test\`)`
+            );
+
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              body,
+            });
