@@ -30,6 +30,10 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
+      - name: Build frontend assets
+        working-directory: www
+        run: npm ci && npm run build
+
       - name: Run tests
         working-directory: www
         run: php artisan test
