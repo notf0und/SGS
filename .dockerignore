@@ -5,5 +5,6 @@ www/storage/logs/*
 www/storage/framework/cache/*
 www/storage/framework/sessions/*
 www/storage/framework/views/*
+www/storage/framework/testing
 www/public/storage
 www/public/games
