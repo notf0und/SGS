@@ -87,7 +87,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: notf0und/sgs
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name | lower }}
           tags: |
             type=semver,pattern={{version}}
             type=raw,value=latest
