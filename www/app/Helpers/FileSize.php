@@ -20,7 +20,8 @@ class FileSize
         $unitIndex = min($unitIndex, count(self::UNITS) - 1);
         
         $size = $bytes / pow(self::THRESHOLD, $unitIndex);
-        
-        return number_format($size, 2) . self::UNITS[$unitIndex];
+        $decimals = $unitIndex === 0 ? 0 : 2;
+
+        return number_format($size, $decimals, '.', '') . self::UNITS[$unitIndex];
     }
 }

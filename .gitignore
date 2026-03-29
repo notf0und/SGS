@@ -10,3 +10,4 @@
 /games/*
 !/games/.gitkeep
 Thumbs.db
+docker-compose.override.yml

@@ -35,7 +35,7 @@ class IndexController extends Controller
     private function getRequestPath(Request $request): ?string
     {
         $path = $request->route('path');
-        return $path ? urldecode($path) : null;
+        return $path ? rawurldecode($path) : null;
     }
 
     /**
@@ -132,7 +132,7 @@ class IndexController extends Controller
     private function buildDirectoryListingHtml(Collection $directories, Collection $files, string $currentPath, string $baseUrl, bool $isDBI): string
     {
         $displayPath = $currentPath 
-            ? '/games/' . urldecode($currentPath) . '/' 
+            ? '/games/' . rawurldecode($currentPath) . '/' 
             : '/games/';
 
         return view('dbi.directory-listing', [
