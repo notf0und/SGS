@@ -1,0 +1,43 @@
+name: Populate PR commits
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  update-body:
+    name: Inject commit list into PR body
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: commits } = await github.rest.pulls.listCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+
+            const commitLines = commits
+              .map(c => `- ${c.commit.message.split('\n')[0]} (${c.sha.slice(0, 7)})`)
+              .join('\n');
+
+            const currentBody = context.payload.pull_request.body ?? '';
+
+            // Replace everything between the Commits header and the next ## header
+            const updated = currentBody.replace(
+              /(## Commits\n)[\s\S]*?(\n## )/,
+              `$1\n${commitLines}\n$2`
+            );
+
+            if (updated === currentBody) return;
+
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              body: updated,
+            });
